@@ -1,0 +1,2340 @@
+{
+ "claim_model": {
+  "bytes": "Parse the envelope and frame format, verify lengths, CRC32, SHA-256 and sequence continuity; truncate only an incomplete tail and reject every complete corruption.",
+  "history": "Serve original history consumers: /changes pages carrying commit identities from the change floor, and point-in-time reads at or above the version floor.",
+  "history_scope": {
+   "commits_and_changes": "commit identities and change pages are available from the journal base",
+   "snapshots_only": "point-in-time reads within the version floor work; no commit identity or change page for any earlier sequence is available",
+   "snapshots_plus_new_changes": "point-in-time reads work and change records start at the restore base; earlier commit identities are unavailable"
+  },
+  "important": "A sample can pass bytes and state while failing part of history: R9-bare keeps snapshots but exposes no commit identities or change pages, and R9-cont10 adds change records only from its restore base. A digest-valid image can fail state (X09..X13). No single pass bit means semantic compatibility, and equal format hashes do not.",
+  "state": "Reconstruct catalogue, index definitions, version chains, tombstones and logical constraints at the head sequence."
+ },
+ "control_recipes": {
+  "G1-single-tx/G4-four-tx": "Four distinct rows inserted either in one commit or four commits.",
+  "T7-twin": "The source recipe replayed independently in a fresh directory. Transaction ids are random, so the checkpoint bytes match while journal identities do not.",
+  "V0-novacuum": {
+   "relation_to_source": "Same schema, transaction boundaries and row values as the source; the single differing operation is the vacuum target (0 instead of 5).",
+   "steps": [
+    {
+     "sequence": 1,
+     "step": "create relation spectra"
+    },
+    {
+     "sequence": 2,
+     "step": "commit rows 1..4 in one transaction"
+    },
+    {
+     "sequence": 3,
+     "step": "commit overwrite sample 1 amplitude=111"
+    },
+    {
+     "sequence": 4,
+     "step": "commit delete sample 2"
+    },
+    {
+     "sequence": 5,
+     "step": "commit insert samples 8 and 9"
+    },
+    {
+     "sequence": 6,
+     "step": "create non-unique index by_amplitude"
+    },
+    {
+     "sequence": 7,
+     "step": "create unique index by_band"
+    },
+    {
+     "sequence": 7,
+     "step": "checkpoint pre-vacuum-control anchor (sequence 7)"
+    },
+    {
+     "sequence": 8,
+     "step": "vacuum horizon=0 (no version removed)"
+    },
+    {
+     "sequence": 8,
+     "step": "checkpoint post-vacuum-control anchor (sequence 8)"
+    },
+    {
+     "sequence": 9,
+     "step": "commit rewrite sample 8 amplitude=888"
+    },
+    {
+     "sequence": 9,
+     "step": "checkpoint control at sequence 9"
+    },
+    {
+     "sequence": 10,
+     "step": "commit insert sample 10"
+    }
+   ],
+   "transaction_ids": {
+    "delete-2": {
+     "sequence": 4,
+     "transaction": "b31c489097a715a8d40114e1f2a9dd0d"
+    },
+    "insert-10": {
+     "sequence": 10,
+     "transaction": "bff2a0284e63868990c6e1321d463946"
+    },
+    "insert-8-9": {
+     "sequence": 5,
+     "transaction": "dad99a17915b2cab7b644fab140caa54"
+    },
+    "overwrite-1": {
+     "sequence": 3,
+     "transaction": "3078c8405a620555190fc192e4ab213c"
+    },
+    "rewrite-8": {
+     "sequence": 9,
+     "transaction": "0859018287b847c4853e1f01e9b902fe"
+    },
+    "rows-1-4": {
+     "sequence": 2,
+     "transaction": "80c970c542df180ab2f63bb1c98ee0b0"
+    }
+   },
+   "vacuum": {
+    "horizon": 0,
+    "pinned": false,
+    "removed": 0,
+    "retained": 8
+   }
+  }
+ },
+ "corruptions": [
+  {
+   "artifacts": [
+    {
+     "blob": "800155a4ad554510febde0769f34b202f8ec8343b2db30f5978fc4bc481d625e",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "800155a4ad554510febde0769f34b202f8ec8343b2db30f5978fc4bc481d625e",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: invalid stored tuple\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:41 ERROR lamina stopped error=\"checkpoint: invalid stored tuple\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"invalid stored tuple\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:41 ERROR lamina stopped error=\"invalid stored tuple\""
+   },
+   "expected": {
+    "code": "invalid_stored_tuple",
+    "stage": "state"
+   },
+   "id": "X09-image-primary-mismatch",
+   "kind": "corrupt",
+   "notes": "Digest recomputed and valid; the image parses and is still semantically invalid.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_stored_tuple",
+    "error": "invalid stored tuple",
+    "stage": "state"
+   },
+   "transform": "stored row says sample 7 while the chain key stays int:8"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "90c219c785fd9ec6ee8b4452721f005936d8619342c0af2c8d701c3ba8f0f02c",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "90c219c785fd9ec6ee8b4452721f005936d8619342c0af2c8d701c3ba8f0f02c",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: invalid version order\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:41 ERROR lamina stopped error=\"checkpoint: invalid version order\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"invalid version order\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid version order\""
+   },
+   "expected": {
+    "code": "invalid_version_order",
+    "stage": "state"
+   },
+   "id": "X10-image-version-order",
+   "kind": "corrupt",
+   "notes": "Digest valid; the version chain is not monotonic.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_version_order",
+    "error": "invalid version order",
+    "stage": "state"
+   },
+   "transform": "swap the two version sequence numbers of key int:8"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "e7b3b5fa859cd0e0d3fb4417bbc771e69ec58732abc7d5a59e868e01f2ede5b2",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "e7b3b5fa859cd0e0d3fb4417bbc771e69ec58732abc7d5a59e868e01f2ede5b2",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: image violates unique index by_band\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"checkpoint: image violates unique index by_band\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"image violates unique index by_band\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"image violates unique index by_band\""
+   },
+   "expected": {
+    "code": "unique_violation",
+    "stage": "state"
+   },
+   "id": "X11-image-unique-violation",
+   "kind": "corrupt",
+   "notes": "Digest valid; the unique index is violated at the image sequence.",
+   "oracle": {
+    "accepted": false,
+    "code": "unique_violation",
+    "error": "image violates unique index by_band",
+    "stage": "state"
+   },
+   "transform": "set row 9 band to b3, duplicating row 3 under unique by_band"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "5e4883855d3094361f7880c99208033d01bf2c630d6a91d26e205ec80c26e910",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "5e4883855d3094361f7880c99208033d01bf2c630d6a91d26e205ec80c26e910",
+     "size": 1169
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: invalid image header\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"checkpoint: invalid image header\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"invalid image header\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid image header\""
+   },
+   "expected": {
+    "code": "invalid_header",
+    "stage": "state"
+   },
+   "id": "X12-image-horizon-ahead",
+   "kind": "corrupt",
+   "notes": "Digest valid; the retained interval claims a future sequence.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid image header",
+    "stage": "state"
+   },
+   "transform": "set horizon above sequence"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "4777bcddcc8b5d201d4785ecd67097ac88a2eaea12e3d78d142e758cbb55c27c",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "4777bcddcc8b5d201d4785ecd67097ac88a2eaea12e3d78d142e758cbb55c27c",
+     "size": 1222
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: image references unknown relation\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"checkpoint: image references unknown relation\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"image references unknown relation\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"image references unknown relation\""
+   },
+   "expected": {
+    "code": "unknown_relation",
+    "stage": "state"
+   },
+   "id": "X13-image-unknown-relation",
+   "kind": "corrupt",
+   "notes": "Digest valid; store and catalogue disagree.",
+   "oracle": {
+    "accepted": false,
+    "code": "unknown_relation",
+    "error": "image references unknown relation",
+    "stage": "state"
+   },
+   "transform": "add a store table for a relation absent from the catalogue"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "92873c54a674a174979bb4bc272367ac0ab5b55b20f92eebe27e688f837f2bde",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "92873c54a674a174979bb4bc272367ac0ab5b55b20f92eebe27e688f837f2bde",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint: image format or digest mismatch\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"checkpoint: image format or digest mismatch\""
+   },
+   "engine_restore": {
+    "accepted": false,
+    "created": false,
+    "error": "\"image format or digest mismatch\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"image format or digest mismatch\""
+   },
+   "expected": {
+    "code": "digest_mismatch",
+    "stage": "format"
+   },
+   "id": "X08-image-digest-mismatch",
+   "kind": "corrupt",
+   "notes": "Rejected before semantic parsing. Contrast X09..X13, which carry a correct digest.",
+   "oracle": {
+    "accepted": false,
+    "code": "digest_mismatch",
+    "error": "image format or digest mismatch",
+    "stage": "format"
+   },
+   "transform": "flip one hexadecimal digit of the envelope digest"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "21b8815df059156cf2d81e42bd745b44db20742ed6ab06e03077e7901853cf31",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "21b8815df059156cf2d81e42bd745b44db20742ed6ab06e03077e7901853cf31",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"invalid journal header\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid journal header\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "invalid_header",
+    "stage": "format"
+   },
+   "id": "X02-journal-header-crc",
+   "kind": "corrupt",
+   "notes": "Header failure is fatal; it is not a recoverable tail.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid journal header",
+    "stage": "format"
+   },
+   "transform": "flip the journal header CRC32"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "311d7220d3ad21347b35599885b1b173351feb7aeeba7bbe1292f2ce833a66e5",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "311d7220d3ad21347b35599885b1b173351feb7aeeba7bbe1292f2ce833a66e5",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"invalid journal header\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid journal header\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "invalid_header",
+    "stage": "format"
+   },
+   "id": "X01-journal-magic",
+   "kind": "corrupt",
+   "notes": "Wrong container family; must not be read as a version-2 format.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid journal header",
+    "stage": "format"
+   },
+   "transform": "change the journal magic to LMW2"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "030b56a724045471d20f5fc4fbe92e78d3f1b27a1a8e8030838a697e365c79a3",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "030b56a724045471d20f5fc4fbe92e78d3f1b27a1a8e8030838a697e365c79a3",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"journal checksum mismatch at 1193\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"journal checksum mismatch at 1193\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "checksum_mismatch",
+    "stage": "format"
+   },
+   "id": "X03-frame-crc",
+   "kind": "corrupt",
+   "notes": "A complete frame with a bad checksum must be rejected, unlike the incomplete tail in J10-tail.",
+   "oracle": {
+    "accepted": false,
+    "code": "checksum_mismatch",
+    "error": "journal checksum mismatch at 1193",
+    "stage": "format"
+   },
+   "transform": "flip a payload byte in frame 5 without updating the frame CRC32"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "1a23ede1d4479b0f652aaf8c932c1963b5eb668abcb922c46669a516db87303f",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1a23ede1d4479b0f652aaf8c932c1963b5eb668abcb922c46669a516db87303f",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"invalid journal length at 1193\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid journal length at 1193\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "invalid_length",
+    "stage": "format"
+   },
+   "id": "X04-frame-length-zero",
+   "kind": "corrupt",
+   "notes": "Zero length is explicitly invalid, not an empty record.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_length",
+    "error": "invalid journal length at 1193",
+    "stage": "format"
+   },
+   "transform": "set the length field of frame 5 to zero"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "4f2a97653c672c53eadecc977cff48a926505149d613b501cbb3f5a2eae2cd0d",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "4f2a97653c672c53eadecc977cff48a926505149d613b501cbb3f5a2eae2cd0d",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"invalid journal length at 1193\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"invalid journal length at 1193\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "invalid_length",
+    "stage": "format"
+   },
+   "id": "X05-frame-length-oversize",
+   "kind": "corrupt",
+   "notes": "Oversize length is rejected before allocation.",
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_length",
+    "error": "invalid journal length at 1193",
+    "stage": "format"
+   },
+   "transform": "set the length field of frame 5 above the 16MiB frame limit"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "0cf683d55286736c17c00cf6fb8b1a78d95986633436de0619270654e79ef159",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "0cf683d55286736c17c00cf6fb8b1a78d95986633436de0619270654e79ef159",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"journal sequence or format mismatch at 1193\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"journal sequence or format mismatch at 1193\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "sequence_or_format_mismatch",
+    "stage": "format"
+   },
+   "id": "X06-frame-sequence-gap",
+   "kind": "corrupt",
+   "notes": "Checksums are valid; ordering is not. Integrity does not imply sequence continuity. The product reports one combined sequence/format failure, so both X06 and X07 carry that class.",
+   "oracle": {
+    "accepted": false,
+    "code": "sequence_or_format_mismatch",
+    "error": "journal sequence or format mismatch at 1193",
+    "stage": "format"
+   },
+   "transform": "rewrite frame 5 sequence to 7 and recompute its CRC32"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "8e4cf86a4671cc07be859f83e809caa333216c99571cc4c1b934b638d8a01fa0",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "8e4cf86a4671cc07be859f83e809caa333216c99571cc4c1b934b638d8a01fa0",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"journal sequence or format mismatch at 1193\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"journal sequence or format mismatch at 1193\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "sequence_or_format_mismatch",
+    "stage": "format"
+   },
+   "id": "X07-frame-format2",
+   "kind": "corrupt",
+   "notes": "A future record format is rejected rather than guessed. The product reports one combined sequence/format failure, so both X06 and X07 carry that class.",
+   "oracle": {
+    "accepted": false,
+    "code": "sequence_or_format_mismatch",
+    "error": "journal sequence or format mismatch at 1193",
+    "stage": "format"
+   },
+   "transform": "rewrite frame 5 format to 2 and recompute its CRC32"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "f0c76afc14aedb2f5434ab2d11be1b717bea78d549f1f1251c87bb7b63e28360",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "f0c76afc14aedb2f5434ab2d11be1b717bea78d549f1f1251c87bb7b63e28360",
+     "size": 2113
+    }
+   ],
+   "base_sample": "C8-prebackup",
+   "engine": {
+    "accepted": false,
+    "error": "\"replay sequence 9: invalid vacuum horizon\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"replay sequence 9: invalid vacuum horizon\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "vacuum_regression",
+    "stage": "state"
+   },
+   "id": "X16-journal-vacuum-regression",
+   "kind": "corrupt",
+   "notes": "Frame and checksum are valid; the retention watermark moves backwards. Paired with image 8 so record 9 is genuinely replayed rather than skipped.",
+   "oracle": {
+    "accepted": false,
+    "code": "vacuum_regression",
+    "error": "invalid vacuum horizon",
+    "stage": "state"
+   },
+   "transform": "replace the record 9 commit with a vacuum at horizon 3, CRC32 recomputed"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "afa62c40fc19de88050e9af90c7206b8f0618dd7aa610aac00c738e591de4664",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "afa62c40fc19de88050e9af90c7206b8f0618dd7aa610aac00c738e591de4664",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C8-prebackup",
+   "engine": {
+    "accepted": false,
+    "error": "\"replay sequence 9: stored primary mismatch\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"replay sequence 9: stored primary mismatch\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "primary_mismatch",
+    "stage": "state"
+   },
+   "id": "X17-journal-primary-mismatch",
+   "kind": "corrupt",
+   "notes": "Frame and checksum are valid; the record contradicts its own key. Paired with image 8 so record 9 is genuinely replayed.",
+   "oracle": {
+    "accepted": false,
+    "code": "primary_mismatch",
+    "error": "stored primary mismatch",
+    "stage": "state"
+   },
+   "transform": "change the stored primary in record 9 to 7 while its key stays int:8, CRC32 recomputed"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "390b62aa5c8a29e1576ae65182f870229b3c7b0bbfb59f61f94d78bdba4a4fac",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "390b62aa5c8a29e1576ae65182f870229b3c7b0bbfb59f61f94d78bdba4a4fac",
+     "size": 2256
+    }
+   ],
+   "base_sample": "C8-prebackup",
+   "engine": {
+    "accepted": false,
+    "error": "\"replay sequence 9: unknown relation ghost\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"replay sequence 9: unknown relation ghost\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "unknown_relation",
+    "stage": "state"
+   },
+   "id": "X18-journal-unknown-relation",
+   "kind": "corrupt",
+   "notes": "Frame and checksum are valid; the write references no catalogued relation. Paired with image 8.",
+   "oracle": {
+    "accepted": false,
+    "code": "unknown_relation",
+    "error": "unknown relation in commit",
+    "stage": "state"
+   },
+   "transform": "point record 9 at relation ghost, CRC32 recomputed"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "e10c57e73c856ccd8e89a4bd95736502aef87836997cb5c53434d60cd474a35f",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "e10c57e73c856ccd8e89a4bd95736502aef87836997cb5c53434d60cd474a35f",
+     "size": 2258
+    }
+   ],
+   "base_sample": "C8-prebackup",
+   "engine": {
+    "accepted": false,
+    "error": "\"recovered constraints: unique constraint by_band violated\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"recovered constraints: unique constraint by_band violated\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "unique_violation",
+    "stage": "state"
+   },
+   "id": "X19-journal-unique-violation",
+   "kind": "corrupt",
+   "notes": "Frame and checksum are valid; replay ends in a unique violation. Paired with image 8.",
+   "oracle": {
+    "accepted": false,
+    "code": "unique_violation",
+    "error": "unique constraint by_band violated",
+    "stage": "state"
+   },
+   "transform": "set record 9 band to b3, duplicating row 3, CRC32 recomputed"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "size": 1842
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"checkpoint ahead of journal\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"checkpoint ahead of journal\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "checkpoint_ahead",
+    "stage": "state"
+   },
+   "id": "X14-checkpoint-ahead",
+   "kind": "corrupt",
+   "notes": "Each artifact is valid alone and restoring the image alone is legitimate; only the paired open is unsupportable, so a reader must validate the combination, not the files one at a time.",
+   "oracle": {
+    "accepted": false,
+    "code": "checkpoint_ahead",
+    "error": "checkpoint ahead of journal",
+    "stage": "state"
+   },
+   "transform": "pair image sequence 9 with only records 1..8"
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "e06d1c1255ee861ceb69daedccd129c5b534b3271f079bb5d3c9ab1478b58cfc",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "e06d1c1255ee861ceb69daedccd129c5b534b3271f079bb5d3c9ab1478b58cfc",
+     "size": 16
+    }
+   ],
+   "base_sample": "C9-suffix10",
+   "engine": {
+    "accepted": false,
+    "error": "\"journal requires newer checkpoint\"",
+    "exit": 1,
+    "stderr": "2026/11/18 07:31:42 ERROR lamina stopped error=\"journal requires newer checkpoint\""
+   },
+   "engine_restore": null,
+   "expected": {
+    "code": "journal_newer",
+    "stage": "state"
+   },
+   "id": "X15-journal-requires-newer-checkpoint",
+   "kind": "corrupt",
+   "notes": "The journal claims a newer base than the image; the pair must be refused, not guessed. Contrast R9-bare, where the same empty journal is legitimate because the restore installed it.",
+   "oracle": {
+    "accepted": false,
+    "code": "journal_newer",
+    "error": "journal requires newer checkpoint",
+    "stage": "state"
+   },
+   "transform": "set the journal header base to 10 while the image is sequence 9"
+  }
+ ],
+ "cost": {
+  "alternatives_considered": {
+   "every_anchor_checkpoint": "Storing a checkpoint at each of sequences 1..10 plus every journal prefix would be about 10 images and 10 journals; the four images and eight journals kept here preserve every discriminating difference at roughly half the bytes.",
+   "latest_only": "One image plus one full journal is smaller but cannot represent the pre-vacuum horizon, so the most important retention control disappears."
+  },
+  "artifact_bytes_referenced": 87132,
+  "dedup_saved_bytes": 36149,
+  "unique_blob_bytes": 50983,
+  "unique_blobs": 32
+ },
+ "coverage": {
+  "images_kept": [
+   "sequence 7 pre-vacuum (horizon 0)",
+   "sequence 8 post-vacuum (horizon 5)",
+   "sequence 9 post-rewrite backup anchor (horizon 5)",
+   "sequence 8 no-vacuum control (horizon 0)"
+  ],
+  "journals_kept": [
+   "source records 1..10",
+   "source prefix 1..8",
+   "source prefix 1..7",
+   "restored base 9 empty",
+   "restored continuation record 10",
+   "twin run records 1..7",
+   "one commit versus four commits (four rows)",
+   "tail-extended source records 1..10 + 3 bytes"
+  ],
+  "reconstructed_not_stored": "Prefixes are sliced from the source journal; empty restored journals are rebuilt as a 16-byte header. No prefix is stored twice.",
+  "why_not_latest_only": "A single latest image erases the version floor transition, tombstone chains, the vacuum record and every commit identity. R9-cont10 would become indistinguishable from C9-suffix10 and X16-X19 could not replay."
+ },
+ "cross_checks": [
+  {
+   "detail": "C7-prefix and T7-twin share checkpoint sha256 b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6 while their history digests differ.",
+   "holds": true,
+   "id": "checkpoint_digest_is_not_history_identity"
+  },
+  {
+   "detail": "Two independent runs of the same recipe expose different transaction ids at every commit sequence.",
+   "holds": true,
+   "id": "same_image_different_commit_identities"
+  },
+  {
+   "detail": "The source at sequence 9, the bare restore and the restored continuation agree on rows and version floor 5 while the change floor is 0 for the source and 9 for both restored instances.",
+   "holds": true,
+   "id": "restore_preserves_rows_but_moves_change_floor"
+  },
+  {
+   "detail": "A restored instance still answers at=5 and at=8 while /changes?after=4 returns 410.",
+   "holds": true,
+   "id": "restore_preserves_old_snapshots_but_not_old_cursors"
+  },
+  {
+   "detail": "Sequence 10 carries the source transaction id in C9-suffix10 and a different id in R9-cont10.",
+   "holds": true,
+   "id": "restore_same_sequence_different_identity"
+  },
+  {
+   "detail": "Identical sequence, record count and head rows; only the vacuum target moves the version floor from 0 to 5 and changes which old snapshots are answerable.",
+   "holds": true,
+   "id": "vacuum_retention_is_a_semantic_difference"
+  },
+  {
+   "detail": "One transaction or four produce identical rows while commit identity and history differ.",
+   "holds": true,
+   "id": "commit_grouping_is_a_semantic_difference"
+  },
+  {
+   "detail": "Three trailing bytes are truncated and state/history match J10-full.",
+   "holds": true,
+   "id": "tail_recovery_is_not_corruption"
+  },
+  {
+   "detail": "Both prefix pairs replay to exactly their image sequence with no suffix.",
+   "holds": true,
+   "id": "checkpoint_prefix_pair_is_consistent"
+  },
+  {
+   "detail": "X09..X13 all carry a recomputed valid digest and still fail state validation.",
+   "holds": true,
+   "id": "digest_valid_is_not_semantic_compatibility"
+  },
+  {
+   "detail": "The real binary rejects every controlled corruption the oracle rejects.",
+   "holds": true,
+   "id": "engine_matches_oracle_on_corrupt"
+  }
+ ],
+ "generated_at": "2026-11-18T07:31:40Z",
+ "generator": {
+  "binary": "/workspace/bin/laminad",
+  "binary_sha256": "3ce6ef4efc66c61aa258c5ae684d18ecd80ce2b2dc17fadcca3eb35bd257bf81",
+  "go": "unreported",
+  "python": "3.11.2",
+  "recipe_version": "1",
+  "tool": "compat/tools/corpusgen.py"
+ },
+ "purpose": "Separate three claims about a new reader: it can recognize the bytes, it can recover the relational state, and it can still serve the original history consumers. Backup restore and change replay must jointly explain commit identity and retention watermarks; equal directories or equal current queries do not imply continuous history.",
+ "rebuild": {
+  "determinism": "Transaction ids are random. Regeneration changes ids and therefore journal and history digests, so only within-run cross-checks and semantic digests are stable. The manifest records the generating binary digest and time.",
+  "steps": [
+   "go build -o bin/laminad ./cmd/laminad",
+   "python3 -I compat/tools/corpusgen.py --binary bin/laminad --out compat",
+   "python3 -I compat/tools/verify.py --corpus compat --binary bin/laminad"
+  ]
+ },
+ "retention_model": {
+  "change_floor": "earliest after cursor accepted by /changes; carried by the journal header base",
+  "rule": "The floors are independent. A restore moves the change floor to the image sequence while preserving the version floor, so old snapshots stay readable after old change cursors are already gone. A reader that derives one floor from the other is wrong in both directions.",
+  "version_floor": "oldest at accepted by a point-in-time query; carried by the image horizon and advanced only by a vacuum record"
+ },
+ "samples": [
+  {
+   "artifacts": [
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/J10-full.json",
+    "sha256": "2fd9070d496d63d8ac2846457031d94ecbf7eb76b0264aac56c6422ce2cff586"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "J10-full",
+   "image_sequence": 0,
+   "kind": "healthy",
+   "notes": "Current rows alone hide tombstones, DDL and the vacuum record. Paired with X03/X04/X05/X06/X07/X16-X19 for complete-frame corruption.",
+   "purpose": "Journal only, base 0, ten complete frames. A reader must replay every record to recover state.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "8e2065420f22963255ba2e1a65334f5c"
+     },
+     {
+      "sequence": 3,
+      "transaction": "b910ebf3507e374277acc89f8a1386aa"
+     },
+     {
+      "sequence": 4,
+      "transaction": "0399ea328e5401b10a19a85b4c658f92"
+     },
+     {
+      "sequence": 5,
+      "transaction": "edffc474636611b359b7c115c5b15744"
+     },
+     {
+      "sequence": 9,
+      "transaction": "7d8f709cf7ec54fcbeccfa9b3a0fd0e0"
+     },
+     {
+      "sequence": 10,
+      "transaction": "1a8d3c70a3127999f79a988f35296df2"
+     }
+    ],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+    "history_digest": "ee8e76aef351797c8d2c8cd43913d1a68b6f40e8910f48d97b9086851583d6d6",
+    "image_sha256": null,
+    "journal_sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": true,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 5,
+     "journal_records": 10,
+     "keys": 6,
+     "recovered_tail_bytes": 0,
+     "sequence": 10,
+     "versions": 7
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "size": 1842
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/C8-prebackup.json",
+    "sha256": "cf0d2a0ec07fb51ae7c8cf67ccd61cb5f5ac651d5ece1990da84631e3e4e8dcc"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "C8-prebackup",
+   "image_sequence": 8,
+   "kind": "healthy",
+   "notes": "A genuine on-disk pair from the source run: image sequence 8 and horizon 5.",
+   "purpose": "Checkpoint written immediately after vacuum, journal through record 8.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "8e2065420f22963255ba2e1a65334f5c"
+     },
+     {
+      "sequence": 3,
+      "transaction": "b910ebf3507e374277acc89f8a1386aa"
+     },
+     {
+      "sequence": 4,
+      "transaction": "0399ea328e5401b10a19a85b4c658f92"
+     },
+     {
+      "sequence": 5,
+      "transaction": "edffc474636611b359b7c115c5b15744"
+     }
+    ],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+    "history_digest": "70f88b88c002c5831ac14b51dd1aa6edd20a650cb30fa727943102d289adb60c",
+    "image_sha256": "2ebc03264dd57114bfc54ce490f96cf269815732035517601a9f715754a520f4",
+    "journal_sha256": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": false
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 5,
+     "journal_records": 8,
+     "keys": 5,
+     "recovered_tail_bytes": 0,
+     "sequence": 8,
+     "versions": 5
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "size": 1281
+    },
+    {
+     "blob": "5a8a2db32991d94b08e3df6260408c56230ba9a093ec31c71f256d5b33379e11",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "5a8a2db32991d94b08e3df6260408c56230ba9a093ec31c71f256d5b33379e11",
+     "size": 1781
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/C7-prefix.json",
+    "sha256": "f6ce4014f76e82e5f1ea0ea9e8e1cd709a0d38ea8555c4e9884d668f6723a5ea"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "C7-prefix",
+   "image_sequence": 7,
+   "kind": "healthy",
+   "notes": "Version floor 0 and three extra readable snapshots versus C8-prebackup. Used with T7-twin to show that an image digest is not commit identity.",
+   "purpose": "Older pre-vacuum pair: image sequence 7 and journal through record 7.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "8e2065420f22963255ba2e1a65334f5c"
+     },
+     {
+      "sequence": 3,
+      "transaction": "b910ebf3507e374277acc89f8a1386aa"
+     },
+     {
+      "sequence": 4,
+      "transaction": "0399ea328e5401b10a19a85b4c658f92"
+     },
+     {
+      "sequence": 5,
+      "transaction": "edffc474636611b359b7c115c5b15744"
+     }
+    ],
+    "version_floor": 0
+   },
+   "semantics": {
+    "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+    "history_digest": "6dd8de1db3f52fc87acbc72e70beda9f6e9c59c20dae92ffa0d0bac658c845eb",
+    "image_sha256": "b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6",
+    "journal_sha256": "5a8a2db32991d94b08e3df6260408c56230ba9a093ec31c71f256d5b33379e11",
+    "snapshot_ok": {
+     "0": false,
+     "1": true,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": false,
+     "9": false
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 0,
+     "journal_records": 7,
+     "keys": 6,
+     "recovered_tail_bytes": 0,
+     "sequence": 7,
+     "versions": 8
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/C9-suffix10.json",
+    "sha256": "204009a1185fb0e6c2545bb426c80faee8915c159db71d08db32271afcfdb6a7"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "C9-suffix10",
+   "image_sequence": 9,
+   "kind": "healthy",
+   "notes": "A real source directory at sequence 10. Backup at sequence 9 equals checkpoint9 byte for byte.",
+   "purpose": "Canonical checkpoint plus journal suffix: image sequence 9 with one frame beyond it.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "8e2065420f22963255ba2e1a65334f5c"
+     },
+     {
+      "sequence": 3,
+      "transaction": "b910ebf3507e374277acc89f8a1386aa"
+     },
+     {
+      "sequence": 4,
+      "transaction": "0399ea328e5401b10a19a85b4c658f92"
+     },
+     {
+      "sequence": 5,
+      "transaction": "edffc474636611b359b7c115c5b15744"
+     },
+     {
+      "sequence": 9,
+      "transaction": "7d8f709cf7ec54fcbeccfa9b3a0fd0e0"
+     },
+     {
+      "sequence": 10,
+      "transaction": "1a8d3c70a3127999f79a988f35296df2"
+     }
+    ],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+    "history_digest": "ee8e76aef351797c8d2c8cd43913d1a68b6f40e8910f48d97b9086851583d6d6",
+    "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+    "journal_sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": true,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 5,
+     "journal_records": 10,
+     "keys": 6,
+     "recovered_tail_bytes": 0,
+     "sequence": 10,
+     "versions": 7
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "f1c32f93fbf1f0500fb4bd3f99288941f6fdd950078f9305b40aef23c9300ec8",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "f1c32f93fbf1f0500fb4bd3f99288941f6fdd950078f9305b40aef23c9300ec8",
+     "size": 1281
+    },
+    {
+     "blob": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+     "size": 2246
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/V0-novacuum.json",
+    "sha256": "589a013a82d69a1494005c10698394e235e901a8b308374ee44959796ca544d2"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "V0-novacuum",
+   "image_sequence": 8,
+   "kind": "healthy",
+   "notes": "The strongest state-control pair: identical visible rows, sequence and record count, different retained interval. A reader that only compares current query output cannot tell them apart, and a reader that infers the change floor from the version floor gets both wrong.",
+   "purpose": "Same recipe, sequence and head rows as C9-suffix10, but the vacuum targets horizon 0 so the version floor stays 0.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "80c970c542df180ab2f63bb1c98ee0b0"
+     },
+     {
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c"
+     },
+     {
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d"
+     },
+     {
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54"
+     },
+     {
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe"
+     },
+     {
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946"
+     }
+    ],
+    "version_floor": 0
+   },
+   "semantics": {
+    "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+    "history_digest": "4e6a5f5c2ac0e1f4900bec59e5be8e21d1cd892978cc09cd9d4c0661b5d79208",
+    "image_sha256": "0109f521254fda24e391fd0f6920dcad3ded94bbe1ccf99467b8b7e04213d783",
+    "journal_sha256": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+    "snapshot_ok": {
+     "0": false,
+     "1": true,
+     "10": true,
+     "11": false,
+     "12": false,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 0,
+     "journal_records": 10,
+     "keys": 7,
+     "recovered_tail_bytes": 0,
+     "sequence": 10,
+     "versions": 10
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+     "size": 16
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": false,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/R9-bare.json",
+    "sha256": "b0af2ea0421679846a411718dd8dab9164a85982bf9917f3d0785e1c2e5af959"
+   },
+   "history_scope": "snapshots_only",
+   "id": "R9-bare",
+   "image_sequence": 9,
+   "kind": "healthy",
+   "notes": "State and snapshots 5..9 are intact, but the instance has no change records. Every cursor below 9 returns 410 even though those rows are still visible.",
+   "purpose": "Restored backup before any new commit: image 9 with the empty journal the restore installs.",
+   "retention": {
+    "change_floor": 9,
+    "commit_identities": [],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "b10c54a22a827a33ee4af35e201a5f05880117a6f5cfa1ec156381154c48106b",
+    "history_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+    "journal_sha256": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 9,
+     "horizon": 5,
+     "journal_records": 0,
+     "keys": 5,
+     "recovered_tail_bytes": 0,
+     "sequence": 9,
+     "versions": 6
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "a910d312d406110dd3e97c38d34fd5582bcf69df7a2554dc02dd731543ce0a89",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "a910d312d406110dd3e97c38d34fd5582bcf69df7a2554dc02dd731543ce0a89",
+     "size": 226
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": false,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/R9-cont10.json",
+    "sha256": "379fc9032f05e2a0124db5acd530f911a3a50190bf0eac3c618af1361f6816e9"
+   },
+   "history_scope": "snapshots_plus_new_changes",
+   "id": "R9-cont10",
+   "image_sequence": 9,
+   "kind": "healthy",
+   "notes": "Equal rows digest and equal state sequence, but change_floor 9 versus 0 and a different transaction id at sequence 10. Backup/restore and change replay must be explained jointly, not by current queries.",
+   "purpose": "Restored backup plus one new commit: equal sequence and head rows to C9-suffix10, different change floor and different commit identity at sequence 10.",
+   "retention": {
+    "change_floor": 9,
+    "commit_identities": [
+     {
+      "sequence": 10,
+      "transaction": "f118824e91daeead0ac3bc67f5233355"
+     }
+    ],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+    "history_digest": "921968c3daca1af35c8b5e5c5ee924a4287921e7fa810b13fd196eca7c11a35e",
+    "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+    "journal_sha256": "a910d312d406110dd3e97c38d34fd5582bcf69df7a2554dc02dd731543ce0a89",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": true,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 9,
+     "horizon": 5,
+     "journal_records": 1,
+     "keys": 6,
+     "recovered_tail_bytes": 0,
+     "sequence": 10,
+     "versions": 7
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "size": 1281
+    },
+    {
+     "blob": "c0edf1afb26726c42ada52c3cb5fbc66b2de2eee8aba50018cdfe15ef936c4da",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "c0edf1afb26726c42ada52c3cb5fbc66b2de2eee8aba50018cdfe15ef936c4da",
+     "size": 1781
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/T7-twin.json",
+    "sha256": "c7000c7a3504b4c6be1a45ee5c8c5ee812bcacd4c6679dc3c23e785e7705ad40"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "T7-twin",
+   "image_sequence": 7,
+   "kind": "healthy",
+   "notes": "Checkpoint sha256 equals C7-prefix exactly; journal history digest differs. Format identity does not identify history.",
+   "purpose": "Independent twin run of the C7 recipe: identical checkpoint bytes, different transaction ids.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "2764700fe6c030a7d1c558744978a7f6"
+     },
+     {
+      "sequence": 3,
+      "transaction": "8bad5cd7261508ea4c0cead009bc6e3c"
+     },
+     {
+      "sequence": 4,
+      "transaction": "e7cee514d1896e04b2eb55ad43b38d16"
+     },
+     {
+      "sequence": 5,
+      "transaction": "e68ec55f6ab05f4d84ed6b807642a14e"
+     }
+    ],
+    "version_floor": 0
+   },
+   "semantics": {
+    "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+    "history_digest": "5399edbb38d1d699c269fb11f4e84f7398bf0dc053592e5efc5965c087aec0b0",
+    "image_sha256": "b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6",
+    "journal_sha256": "c0edf1afb26726c42ada52c3cb5fbc66b2de2eee8aba50018cdfe15ef936c4da",
+    "snapshot_ok": {
+     "0": false,
+     "1": true,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": false,
+     "9": false
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 0,
+     "journal_records": 7,
+     "keys": 6,
+     "recovered_tail_bytes": 0,
+     "sequence": 7,
+     "versions": 8
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "1bdd4f4a662bd8135013332c1b8d4d84c05e9d72390f98c502a342788eadb2fb",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1bdd4f4a662bd8135013332c1b8d4d84c05e9d72390f98c502a342788eadb2fb",
+     "size": 826
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/G1-single-tx.json",
+    "sha256": "bc8c01020122eba191a8ddd7107c36039ce9856973e8aa02cab9f9fc7846f2bb"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "G1-single-tx",
+   "image_sequence": 0,
+   "kind": "healthy",
+   "notes": "Head rows match G4-four-tx while commit grouping does not.",
+   "purpose": "Four rows written by one transaction: one commit identity.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "9bc0a1433348a4186d40cf9be00c3d97"
+     }
+    ],
+    "version_floor": 0
+   },
+   "semantics": {
+    "head_rows_digest": "fa524907fc91a44716e8cfc11d84c9758ec6be13950b0b45fb175b5fb62f017f",
+    "history_digest": "6c607d8225ac9e121d1c91b6c9a8f3fdf3570ee870695ac4584803a05f53f3c2",
+    "image_sha256": null,
+    "journal_sha256": "1bdd4f4a662bd8135013332c1b8d4d84c05e9d72390f98c502a342788eadb2fb",
+    "snapshot_ok": {
+     "0": false,
+     "1": true,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": true,
+     "3": false,
+     "4": false,
+     "5": false,
+     "6": false,
+     "7": false,
+     "8": false,
+     "9": false
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 0,
+     "journal_records": 2,
+     "keys": 4,
+     "recovered_tail_bytes": 0,
+     "sequence": 2,
+     "versions": 4
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "b9404f020ba08d62aba428446f6726d0d9f5265c9bafdfe2a594fd26b8985401",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "b9404f020ba08d62aba428446f6726d0d9f5265c9bafdfe2a594fd26b8985401",
+     "size": 1153
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/G4-four-tx.json",
+    "sha256": "69d24259148324a0803b97d1a9c48698c3631ad0eab7112c474d673ebb7d4ee4"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "G4-four-tx",
+   "image_sequence": 0,
+   "kind": "healthy",
+   "notes": "Same rows digest as G1-single-tx, different sequence span and history digest.",
+   "purpose": "The same four rows written by four transactions: four commit identities.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "fc71c552caae0903f6dc92d6c862df43"
+     },
+     {
+      "sequence": 3,
+      "transaction": "f2af5e17baf07d4c8c50882740854a5f"
+     },
+     {
+      "sequence": 4,
+      "transaction": "a6db4744820399d298c96b5e8d51313a"
+     },
+     {
+      "sequence": 5,
+      "transaction": "50077cb0fb5327256ee34d24a14ee00a"
+     }
+    ],
+    "version_floor": 0
+   },
+   "semantics": {
+    "head_rows_digest": "fa524907fc91a44716e8cfc11d84c9758ec6be13950b0b45fb175b5fb62f017f",
+    "history_digest": "6200f81d147f81383538502b593801d0475a6a5d533a3fc8401452ef94d6a350",
+    "image_sha256": null,
+    "journal_sha256": "b9404f020ba08d62aba428446f6726d0d9f5265c9bafdfe2a594fd26b8985401",
+    "snapshot_ok": {
+     "0": false,
+     "1": true,
+     "10": false,
+     "11": false,
+     "12": false,
+     "2": true,
+     "3": true,
+     "4": true,
+     "5": true,
+     "6": false,
+     "7": false,
+     "8": false,
+     "9": false
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 0,
+     "journal_records": 5,
+     "keys": 4,
+     "recovered_tail_bytes": 0,
+     "sequence": 5,
+     "versions": 4
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "13ad30be1751accdf528ef7ec544aeb4ab0d6f9eef57c4d31c8d823ebc6cafff",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "13ad30be1751accdf528ef7ec544aeb4ab0d6f9eef57c4d31c8d823ebc6cafff",
+     "size": 2261
+    }
+   ],
+   "change_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "expectations": {
+    "path": "corpus/expected/J10-tail.json",
+    "sha256": "2acca43022d9c5bbaf1169ac8c2d0173b0edd97ae15e0da1a18fb70749f51301"
+   },
+   "history_scope": "commits_and_changes",
+   "id": "J10-tail",
+   "image_sequence": 0,
+   "kind": "healthy",
+   "notes": "recovered_tail_bytes 3 and state equal to J10-full. Contrast X03-frame-crc: a complete frame with a bad checksum is fatal.",
+   "purpose": "Complete history plus a three-byte incomplete final frame. A reader must recover, not reject.",
+   "retention": {
+    "change_floor": 0,
+    "commit_identities": [
+     {
+      "sequence": 2,
+      "transaction": "8e2065420f22963255ba2e1a65334f5c"
+     },
+     {
+      "sequence": 3,
+      "transaction": "b910ebf3507e374277acc89f8a1386aa"
+     },
+     {
+      "sequence": 4,
+      "transaction": "0399ea328e5401b10a19a85b4c658f92"
+     },
+     {
+      "sequence": 5,
+      "transaction": "edffc474636611b359b7c115c5b15744"
+     },
+     {
+      "sequence": 9,
+      "transaction": "7d8f709cf7ec54fcbeccfa9b3a0fd0e0"
+     },
+     {
+      "sequence": 10,
+      "transaction": "1a8d3c70a3127999f79a988f35296df2"
+     }
+    ],
+    "version_floor": 5
+   },
+   "semantics": {
+    "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+    "history_digest": "ee8e76aef351797c8d2c8cd43913d1a68b6f40e8910f48d97b9086851583d6d6",
+    "image_sha256": null,
+    "journal_sha256": "13ad30be1751accdf528ef7ec544aeb4ab0d6f9eef57c4d31c8d823ebc6cafff",
+    "snapshot_ok": {
+     "0": false,
+     "1": false,
+     "10": true,
+     "11": false,
+     "12": false,
+     "2": false,
+     "3": false,
+     "4": false,
+     "5": true,
+     "6": true,
+     "7": true,
+     "8": true,
+     "9": true
+    },
+    "stats": {
+     "history_base": 0,
+     "horizon": 5,
+     "journal_records": 10,
+     "keys": 6,
+     "recovered_tail_bytes": 3,
+     "sequence": 10,
+     "versions": 7
+    }
+   },
+   "snapshot_anchors": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  }
+ ],
+ "schema": "lamina-compat-corpus/1",
+ "source_recipe": {
+  "backup_equals_checkpoint": true,
+  "backup_sequence": 9,
+  "restored_commit": {
+   "sequence": 10,
+   "writes": 1
+  },
+  "restored_sequence_10_transaction": "f118824e91daeead0ac3bc67f5233355",
+  "steps": [
+   {
+    "sequence": 1,
+    "step": "create relation spectra"
+   },
+   {
+    "sequence": 2,
+    "step": "commit rows 1..4 in one transaction"
+   },
+   {
+    "sequence": 3,
+    "step": "commit overwrite sample 1 amplitude=111"
+   },
+   {
+    "sequence": 4,
+    "step": "commit delete sample 2"
+   },
+   {
+    "sequence": 5,
+    "step": "commit insert samples 8 and 9"
+   },
+   {
+    "sequence": 6,
+    "step": "create non-unique index by_amplitude"
+   },
+   {
+    "sequence": 7,
+    "step": "create unique index by_band"
+   },
+   {
+    "sequence": 7,
+    "step": "checkpoint pre-vacuum anchor (sequence 7)"
+   },
+   {
+    "sequence": 8,
+    "step": "vacuum horizon=5"
+   },
+   {
+    "sequence": 8,
+    "step": "checkpoint post-vacuum anchor (sequence 8)"
+   },
+   {
+    "sequence": 9,
+    "step": "commit rewrite sample 8 amplitude=888"
+   },
+   {
+    "sequence": 9,
+    "step": "checkpoint backup anchor (sequence 9)"
+   },
+   {
+    "sequence": 10,
+    "step": "commit insert sample 10"
+   }
+  ],
+  "transaction_ids": {
+   "delete-2": {
+    "sequence": 4,
+    "transaction": "0399ea328e5401b10a19a85b4c658f92"
+   },
+   "insert-10": {
+    "sequence": 10,
+    "transaction": "1a8d3c70a3127999f79a988f35296df2"
+   },
+   "insert-8-9": {
+    "sequence": 5,
+    "transaction": "edffc474636611b359b7c115c5b15744"
+   },
+   "overwrite-1": {
+    "sequence": 3,
+    "transaction": "b910ebf3507e374277acc89f8a1386aa"
+   },
+   "rewrite-8": {
+    "sequence": 9,
+    "transaction": "7d8f709cf7ec54fcbeccfa9b3a0fd0e0"
+   },
+   "rows-1-4": {
+    "sequence": 2,
+    "transaction": "8e2065420f22963255ba2e1a65334f5c"
+   }
+  },
+  "vacuum": {
+   "horizon": 5,
+   "pinned": false,
+   "removed": 3,
+   "retained": 5
+  }
+ }
+}

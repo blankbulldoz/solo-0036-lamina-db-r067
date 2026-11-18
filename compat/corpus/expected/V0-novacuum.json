@@ -1,0 +1,2932 @@
+{
+ "live": {
+  "catalog": {
+   "indexes": [
+    {
+     "column": "amplitude",
+     "created": 6,
+     "name": "by_amplitude",
+     "relation": "spectra",
+     "unique": false
+    },
+    {
+     "column": "band",
+     "created": 7,
+     "name": "by_band",
+     "relation": "spectra",
+     "unique": true
+    }
+   ],
+   "relations": [
+    {
+     "columns": [
+      {
+       "name": "sample",
+       "nullable": false,
+       "type": "int"
+      },
+      {
+       "name": "band",
+       "nullable": false,
+       "type": "text"
+      },
+      {
+       "name": "amplitude",
+       "nullable": true,
+       "type": "int"
+      },
+      {
+       "name": "valid",
+       "nullable": false,
+       "type": "bool"
+      }
+     ],
+     "created": 1,
+     "name": "spectra",
+     "primary": "sample"
+    }
+   ]
+  },
+  "changes": {
+   "0": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "relation",
+      "relation": {
+       "columns": [
+        {
+         "name": "sample",
+         "nullable": false,
+         "type": "int"
+        },
+        {
+         "name": "band",
+         "nullable": false,
+         "type": "text"
+        },
+        {
+         "name": "amplitude",
+         "nullable": true,
+         "type": "int"
+        },
+        {
+         "name": "valid",
+         "nullable": false,
+         "type": "bool"
+        }
+       ],
+       "created": 1,
+       "name": "spectra",
+       "primary": "sample"
+      },
+      "sequence": 1
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 2,
+      "transaction": "80c970c542df180ab2f63bb1c98ee0b0",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 10,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:2",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 20,
+         "band": "b2",
+         "sample": 2,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:3",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 30,
+         "band": "b3",
+         "sample": 3,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:4",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 40,
+         "band": "b4",
+         "sample": 4,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "1": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 2,
+      "transaction": "80c970c542df180ab2f63bb1c98ee0b0",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 10,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:2",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 20,
+         "band": "b2",
+         "sample": 2,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:3",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 30,
+         "band": "b3",
+         "sample": 3,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:4",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 40,
+         "band": "b4",
+         "sample": 4,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "10": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": []
+   },
+   "11": {
+    "error": "invalid",
+    "ok": false
+   },
+   "12": {
+    "error": "invalid",
+    "ok": false
+   },
+   "2": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "3": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "4": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "5": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "6": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "7": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "8": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "9": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "changes_limit1_after_7": {
+   "cursor": 8,
+   "head": 10,
+   "history_base": 0,
+   "more": true,
+   "records": [
+    {
+     "format": 1,
+     "kind": "vacuum",
+     "sequence": 8
+    }
+   ]
+  },
+  "head": {
+   "matched": 6,
+   "plan": {
+    "access": "scan",
+    "candidates": 7,
+    "residuals": 0,
+    "snapshot": 10
+   },
+   "rows": [
+    {
+     "amplitude": 111,
+     "band": "b1",
+     "sample": 1,
+     "valid": true
+    },
+    {
+     "amplitude": 30,
+     "band": "b3",
+     "sample": 3,
+     "valid": true
+    },
+    {
+     "amplitude": 40,
+     "band": "b4",
+     "sample": 4,
+     "valid": true
+    },
+    {
+     "amplitude": 888,
+     "band": "b8",
+     "sample": 8,
+     "valid": true
+    },
+    {
+     "amplitude": 90,
+     "band": "b9",
+     "sample": 9,
+     "valid": true
+    },
+    {
+     "amplitude": 100,
+     "band": "b10",
+     "sample": 10,
+     "valid": true
+    }
+   ],
+   "scanned": 6,
+   "truncated": false
+  },
+  "sample": "V0-novacuum",
+  "snapshots": {
+   "0": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "1": {
+    "ok": true,
+    "rows": []
+   },
+   "10": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     },
+     {
+      "amplitude": 100,
+      "band": "b10",
+      "sample": 10,
+      "valid": true
+     }
+    ]
+   },
+   "11": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "12": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "2": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 10,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 20,
+      "band": "b2",
+      "sample": 2,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "3": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 20,
+      "band": "b2",
+      "sample": 2,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "4": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "5": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "6": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "7": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "8": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "9": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   }
+  },
+  "stats": {
+   "history_base": 0,
+   "horizon": 0,
+   "journal_records": 10,
+   "keys": 7,
+   "recovered_tail_bytes": 0,
+   "sequence": 10,
+   "versions": 10
+  }
+ },
+ "oracle": {
+  "catalog": {
+   "indexes": [
+    {
+     "column": "amplitude",
+     "created": 6,
+     "name": "by_amplitude",
+     "relation": "spectra",
+     "unique": false
+    },
+    {
+     "column": "band",
+     "created": 7,
+     "name": "by_band",
+     "relation": "spectra",
+     "unique": true
+    }
+   ],
+   "relations": [
+    {
+     "columns": [
+      {
+       "name": "sample",
+       "nullable": false,
+       "type": "int"
+      },
+      {
+       "name": "band",
+       "nullable": false,
+       "type": "text"
+      },
+      {
+       "name": "amplitude",
+       "nullable": true,
+       "type": "int"
+      },
+      {
+       "name": "valid",
+       "nullable": false,
+       "type": "bool"
+      }
+     ],
+     "created": 1,
+     "name": "spectra",
+     "primary": "sample"
+    }
+   ]
+  },
+  "changes": {
+   "0": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "relation",
+      "relation": {
+       "columns": [
+        {
+         "name": "sample",
+         "nullable": false,
+         "type": "int"
+        },
+        {
+         "name": "band",
+         "nullable": false,
+         "type": "text"
+        },
+        {
+         "name": "amplitude",
+         "nullable": true,
+         "type": "int"
+        },
+        {
+         "name": "valid",
+         "nullable": false,
+         "type": "bool"
+        }
+       ],
+       "created": 1,
+       "name": "spectra",
+       "primary": "sample"
+      },
+      "sequence": 1
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 2,
+      "transaction": "80c970c542df180ab2f63bb1c98ee0b0",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 10,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:2",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 20,
+         "band": "b2",
+         "sample": 2,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:3",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 30,
+         "band": "b3",
+         "sample": 3,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:4",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 40,
+         "band": "b4",
+         "sample": 4,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "1": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 2,
+      "transaction": "80c970c542df180ab2f63bb1c98ee0b0",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 10,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:2",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 20,
+         "band": "b2",
+         "sample": 2,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:3",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 30,
+         "band": "b3",
+         "sample": 3,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:4",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 40,
+         "band": "b4",
+         "sample": 4,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "10": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": []
+   },
+   "11": {
+    "error": "invalid",
+    "ok": false,
+    "reason": "invalid_cursor"
+   },
+   "12": {
+    "error": "invalid",
+    "ok": false,
+    "reason": "invalid_cursor"
+   },
+   "2": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 3,
+      "transaction": "3078c8405a620555190fc192e4ab213c",
+      "writes": [
+       {
+        "key": "int:1",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 111,
+         "band": "b1",
+         "sample": 1,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "3": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 4,
+      "transaction": "b31c489097a715a8d40114e1f2a9dd0d",
+      "writes": [
+       {
+        "deleted": true,
+        "key": "int:2",
+        "relation": "spectra"
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "4": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 5,
+      "transaction": "dad99a17915b2cab7b644fab140caa54",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 80,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       },
+       {
+        "key": "int:9",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 90,
+         "band": "b9",
+         "sample": 9,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "5": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "index": {
+       "column": "amplitude",
+       "created": 6,
+       "name": "by_amplitude",
+       "relation": "spectra",
+       "unique": false
+      },
+      "kind": "index",
+      "sequence": 6
+     },
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "6": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "index": {
+       "column": "band",
+       "created": 7,
+       "name": "by_band",
+       "relation": "spectra",
+       "unique": true
+      },
+      "kind": "index",
+      "sequence": 7
+     },
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "7": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "vacuum",
+      "sequence": 8
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "8": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 9,
+      "transaction": "0859018287b847c4853e1f01e9b902fe",
+      "writes": [
+       {
+        "key": "int:8",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 888,
+         "band": "b8",
+         "sample": 8,
+         "valid": true
+        }
+       }
+      ]
+     },
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "9": {
+    "cursor": 10,
+    "head": 10,
+    "history_base": 0,
+    "more": false,
+    "ok": true,
+    "records": [
+     {
+      "format": 1,
+      "kind": "commit",
+      "sequence": 10,
+      "transaction": "bff2a0284e63868990c6e1321d463946",
+      "writes": [
+       {
+        "key": "int:10",
+        "relation": "spectra",
+        "row": {
+         "amplitude": 100,
+         "band": "b10",
+         "sample": 10,
+         "valid": true
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "head_rows": [
+   {
+    "amplitude": 111,
+    "band": "b1",
+    "sample": 1,
+    "valid": true
+   },
+   {
+    "amplitude": 30,
+    "band": "b3",
+    "sample": 3,
+    "valid": true
+   },
+   {
+    "amplitude": 40,
+    "band": "b4",
+    "sample": 4,
+    "valid": true
+   },
+   {
+    "amplitude": 888,
+    "band": "b8",
+    "sample": 8,
+    "valid": true
+   },
+   {
+    "amplitude": 90,
+    "band": "b9",
+    "sample": 9,
+    "valid": true
+   },
+   {
+    "amplitude": 100,
+    "band": "b10",
+    "sample": 10,
+    "valid": true
+   }
+  ],
+  "history_digest": "4e6a5f5c2ac0e1f4900bec59e5be8e21d1cd892978cc09cd9d4c0661b5d79208",
+  "image_sequence": 8,
+  "image_sha256": "0109f521254fda24e391fd0f6920dcad3ded94bbe1ccf99467b8b7e04213d783",
+  "journal_sha256": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+  "recovered_tail_bytes": 0,
+  "retention": {
+   "change_floor": 0,
+   "identity_unavailable_through": 0,
+   "journal_commits": [
+    {
+     "sequence": 2,
+     "transaction": "80c970c542df180ab2f63bb1c98ee0b0"
+    },
+    {
+     "sequence": 3,
+     "transaction": "3078c8405a620555190fc192e4ab213c"
+    },
+    {
+     "sequence": 4,
+     "transaction": "b31c489097a715a8d40114e1f2a9dd0d"
+    },
+    {
+     "sequence": 5,
+     "transaction": "dad99a17915b2cab7b644fab140caa54"
+    },
+    {
+     "sequence": 9,
+     "transaction": "0859018287b847c4853e1f01e9b902fe"
+    },
+    {
+     "sequence": 10,
+     "transaction": "bff2a0284e63868990c6e1321d463946"
+    }
+   ],
+   "version_floor": 0
+  },
+  "rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+  "snapshots": {
+   "0": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "relation_absent"
+   },
+   "1": {
+    "ok": true,
+    "rows": []
+   },
+   "10": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     },
+     {
+      "amplitude": 100,
+      "band": "b10",
+      "sample": 10,
+      "valid": true
+     }
+    ]
+   },
+   "11": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "future_snapshot"
+   },
+   "12": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "future_snapshot"
+   },
+   "2": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 10,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 20,
+      "band": "b2",
+      "sample": 2,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "3": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 20,
+      "band": "b2",
+      "sample": 2,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "4": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     }
+    ]
+   },
+   "5": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "6": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "7": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "8": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "9": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   }
+  },
+  "stats": {
+   "history_base": 0,
+   "horizon": 0,
+   "journal_records": 10,
+   "keys": 7,
+   "recovered_tail_bytes": 0,
+   "sequence": 10,
+   "versions": 10
+  }
+ },
+ "sample": "V0-novacuum"
+}

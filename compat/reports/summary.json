@@ -1,0 +1,662 @@
+{
+ "binary_sha256": "3ce6ef4efc66c61aa258c5ae684d18ecd80ce2b2dc17fadcca3eb35bd257bf81",
+ "corrupt": [
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_stored_tuple",
+    "stage": "state"
+   },
+   "id": "X09-image-primary-mismatch",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_stored_tuple",
+    "error": "invalid stored tuple",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_version_order",
+    "stage": "state"
+   },
+   "id": "X10-image-version-order",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_version_order",
+    "error": "invalid version order",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "unique_violation",
+    "stage": "state"
+   },
+   "id": "X11-image-unique-violation",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "unique_violation",
+    "error": "image violates unique index by_band",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_header",
+    "stage": "state"
+   },
+   "id": "X12-image-horizon-ahead",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid image header",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "unknown_relation",
+    "stage": "state"
+   },
+   "id": "X13-image-unknown-relation",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "unknown_relation",
+    "error": "image references unknown relation",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "digest_mismatch",
+    "stage": "format"
+   },
+   "id": "X08-image-digest-mismatch",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "digest_mismatch",
+    "error": "image format or digest mismatch",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_header",
+    "stage": "format"
+   },
+   "id": "X02-journal-header-crc",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid journal header",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_header",
+    "stage": "format"
+   },
+   "id": "X01-journal-magic",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_header",
+    "error": "invalid journal header",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "checksum_mismatch",
+    "stage": "format"
+   },
+   "id": "X03-frame-crc",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "checksum_mismatch",
+    "error": "journal checksum mismatch at 1193",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_length",
+    "stage": "format"
+   },
+   "id": "X04-frame-length-zero",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_length",
+    "error": "invalid journal length at 1193",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "invalid_length",
+    "stage": "format"
+   },
+   "id": "X05-frame-length-oversize",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "invalid_length",
+    "error": "invalid journal length at 1193",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "sequence_or_format_mismatch",
+    "stage": "format"
+   },
+   "id": "X06-frame-sequence-gap",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "sequence_or_format_mismatch",
+    "error": "journal sequence or format mismatch at 1193",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "sequence_or_format_mismatch",
+    "stage": "format"
+   },
+   "id": "X07-frame-format2",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "sequence_or_format_mismatch",
+    "error": "journal sequence or format mismatch at 1193",
+    "stage": "format"
+   }
+  },
+  {
+   "base": "C8-prebackup",
+   "expected": {
+    "code": "vacuum_regression",
+    "stage": "state"
+   },
+   "id": "X16-journal-vacuum-regression",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "vacuum_regression",
+    "error": "invalid vacuum horizon",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C8-prebackup",
+   "expected": {
+    "code": "primary_mismatch",
+    "stage": "state"
+   },
+   "id": "X17-journal-primary-mismatch",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "primary_mismatch",
+    "error": "stored primary mismatch",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C8-prebackup",
+   "expected": {
+    "code": "unknown_relation",
+    "stage": "state"
+   },
+   "id": "X18-journal-unknown-relation",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "unknown_relation",
+    "error": "unknown relation in commit",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C8-prebackup",
+   "expected": {
+    "code": "unique_violation",
+    "stage": "state"
+   },
+   "id": "X19-journal-unique-violation",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "unique_violation",
+    "error": "unique constraint by_band violated",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "checkpoint_ahead",
+    "stage": "state"
+   },
+   "id": "X14-checkpoint-ahead",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "checkpoint_ahead",
+    "error": "checkpoint ahead of journal",
+    "stage": "state"
+   }
+  },
+  {
+   "base": "C9-suffix10",
+   "expected": {
+    "code": "journal_newer",
+    "stage": "state"
+   },
+   "id": "X15-journal-requires-newer-checkpoint",
+   "live_binary_rejected": true,
+   "oracle": {
+    "accepted": false,
+    "code": "journal_newer",
+    "error": "journal requires newer checkpoint",
+    "stage": "state"
+   }
+  }
+ ],
+ "cost": {
+  "alternatives_considered": {
+   "every_anchor_checkpoint": "Storing a checkpoint at each of sequences 1..10 plus every journal prefix would be about 10 images and 10 journals; the four images and eight journals kept here preserve every discriminating difference at roughly half the bytes.",
+   "latest_only": "One image plus one full journal is smaller but cannot represent the pre-vacuum horizon, so the most important retention control disappears."
+  },
+  "artifact_bytes_referenced": 87132,
+  "dedup_saved_bytes": 36149,
+  "unique_blob_bytes": 50983,
+  "unique_blobs": 32
+ },
+ "cross_checks": [
+  {
+   "detail": "C7-prefix and T7-twin share checkpoint sha256 b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6 while their history digests differ.",
+   "holds": true,
+   "id": "checkpoint_digest_is_not_history_identity"
+  },
+  {
+   "detail": "Two independent runs of the same recipe expose different transaction ids at every commit sequence.",
+   "holds": true,
+   "id": "same_image_different_commit_identities"
+  },
+  {
+   "detail": "The source at sequence 9, the bare restore and the restored continuation agree on rows and version floor 5 while the change floor is 0 for the source and 9 for both restored instances.",
+   "holds": true,
+   "id": "restore_preserves_rows_but_moves_change_floor"
+  },
+  {
+   "detail": "A restored instance still answers at=5 and at=8 while /changes?after=4 returns 410.",
+   "holds": true,
+   "id": "restore_preserves_old_snapshots_but_not_old_cursors"
+  },
+  {
+   "detail": "Sequence 10 carries the source transaction id in C9-suffix10 and a different id in R9-cont10.",
+   "holds": true,
+   "id": "restore_same_sequence_different_identity"
+  },
+  {
+   "detail": "Identical sequence, record count and head rows; only the vacuum target moves the version floor from 0 to 5 and changes which old snapshots are answerable.",
+   "holds": true,
+   "id": "vacuum_retention_is_a_semantic_difference"
+  },
+  {
+   "detail": "One transaction or four produce identical rows while commit identity and history differ.",
+   "holds": true,
+   "id": "commit_grouping_is_a_semantic_difference"
+  },
+  {
+   "detail": "Three trailing bytes are truncated and state/history match J10-full.",
+   "holds": true,
+   "id": "tail_recovery_is_not_corruption"
+  },
+  {
+   "detail": "Both prefix pairs replay to exactly their image sequence with no suffix.",
+   "holds": true,
+   "id": "checkpoint_prefix_pair_is_consistent"
+  },
+  {
+   "detail": "X09..X13 all carry a recomputed valid digest and still fail state validation.",
+   "holds": true,
+   "id": "digest_valid_is_not_semantic_compatibility"
+  },
+  {
+   "detail": "The real binary rejects every controlled corruption the oracle rejects.",
+   "holds": true,
+   "id": "engine_matches_oracle_on_corrupt"
+  }
+ ],
+ "generated_at": "2026-11-18T07:31:40Z",
+ "healthy": [
+  {
+   "artifacts": [
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+   "history_scope": "commits_and_changes",
+   "id": "J10-full",
+   "image_sha256": null,
+   "sequence": 10,
+   "version_floor": 5
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "3f677bc819af20a4257900ca0e4045c9dd5437fcaee7189dadd1bd12c0049fe4",
+     "size": 1093
+    },
+    {
+     "blob": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "20f1b50cbf728f0def5e0cea9391c5e834540ba262051816d3d8c5c44a3e8e39",
+     "size": 1842
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+   "history_scope": "commits_and_changes",
+   "id": "C8-prebackup",
+   "image_sha256": "2ebc03264dd57114bfc54ce490f96cf269815732035517601a9f715754a520f4",
+   "sequence": 8,
+   "version_floor": 5
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "size": 1281
+    },
+    {
+     "blob": "5a8a2db32991d94b08e3df6260408c56230ba9a093ec31c71f256d5b33379e11",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "5a8a2db32991d94b08e3df6260408c56230ba9a093ec31c71f256d5b33379e11",
+     "size": 1781
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+   "history_scope": "commits_and_changes",
+   "id": "C7-prefix",
+   "image_sha256": "b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6",
+   "sequence": 7,
+   "version_floor": 0
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1b3dacb2487a1638a2ba733297a2cfa17a9f793271bb5b2675b7aec7af5cb2b9",
+     "size": 2258
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+   "history_scope": "commits_and_changes",
+   "id": "C9-suffix10",
+   "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+   "sequence": 10,
+   "version_floor": 5
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "f1c32f93fbf1f0500fb4bd3f99288941f6fdd950078f9305b40aef23c9300ec8",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "f1c32f93fbf1f0500fb4bd3f99288941f6fdd950078f9305b40aef23c9300ec8",
+     "size": 1281
+    },
+    {
+     "blob": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "a0db97e643bced3dce86ebc19b25d9af5a1375d2aa7885636650e5a19e39a27e",
+     "size": 2246
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+   "history_scope": "commits_and_changes",
+   "id": "V0-novacuum",
+   "image_sha256": "0109f521254fda24e391fd0f6920dcad3ded94bbe1ccf99467b8b7e04213d783",
+   "sequence": 10,
+   "version_floor": 0
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+     "size": 16
+    }
+   ],
+   "change_floor": 9,
+   "claims": {
+    "bytes": true,
+    "history": false,
+    "state": true
+   },
+   "head_rows_digest": "b10c54a22a827a33ee4af35e201a5f05880117a6f5cfa1ec156381154c48106b",
+   "history_scope": "snapshots_only",
+   "id": "R9-bare",
+   "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+   "sequence": 9,
+   "version_floor": 5
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "d60764df4c448beb3529ee73c64e436e664dde1f1be2647a7b50880636cd4d6d",
+     "size": 1168
+    },
+    {
+     "blob": "a910d312d406110dd3e97c38d34fd5582bcf69df7a2554dc02dd731543ce0a89",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "a910d312d406110dd3e97c38d34fd5582bcf69df7a2554dc02dd731543ce0a89",
+     "size": 226
+    }
+   ],
+   "change_floor": 9,
+   "claims": {
+    "bytes": true,
+    "history": false,
+    "state": true
+   },
+   "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+   "history_scope": "snapshots_plus_new_changes",
+   "id": "R9-cont10",
+   "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+   "sequence": 10,
+   "version_floor": 5
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "name": "checkpoint.lmi",
+     "role": "checkpoint",
+     "sha256": "288a7c2592e83ae73d620e822ccc7943e8f2dc8d8947f8b0aa44154b63b68ab7",
+     "size": 1281
+    },
+    {
+     "blob": "c0edf1afb26726c42ada52c3cb5fbc66b2de2eee8aba50018cdfe15ef936c4da",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "c0edf1afb26726c42ada52c3cb5fbc66b2de2eee8aba50018cdfe15ef936c4da",
+     "size": 1781
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "494d353559716057769da426a0a2feccf406f26765bb0210bd87d093810bbbf2",
+   "history_scope": "commits_and_changes",
+   "id": "T7-twin",
+   "image_sha256": "b55359da7dd3619afbbe815ad477544e8bc88cebe1877b0f005a75b1515d6cf6",
+   "sequence": 7,
+   "version_floor": 0
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "1bdd4f4a662bd8135013332c1b8d4d84c05e9d72390f98c502a342788eadb2fb",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "1bdd4f4a662bd8135013332c1b8d4d84c05e9d72390f98c502a342788eadb2fb",
+     "size": 826
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "fa524907fc91a44716e8cfc11d84c9758ec6be13950b0b45fb175b5fb62f017f",
+   "history_scope": "commits_and_changes",
+   "id": "G1-single-tx",
+   "image_sha256": null,
+   "sequence": 2,
+   "version_floor": 0
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "b9404f020ba08d62aba428446f6726d0d9f5265c9bafdfe2a594fd26b8985401",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "b9404f020ba08d62aba428446f6726d0d9f5265c9bafdfe2a594fd26b8985401",
+     "size": 1153
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "fa524907fc91a44716e8cfc11d84c9758ec6be13950b0b45fb175b5fb62f017f",
+   "history_scope": "commits_and_changes",
+   "id": "G4-four-tx",
+   "image_sha256": null,
+   "sequence": 5,
+   "version_floor": 0
+  },
+  {
+   "artifacts": [
+    {
+     "blob": "13ad30be1751accdf528ef7ec544aeb4ab0d6f9eef57c4d31c8d823ebc6cafff",
+     "name": "journal.lmw",
+     "role": "journal",
+     "sha256": "13ad30be1751accdf528ef7ec544aeb4ab0d6f9eef57c4d31c8d823ebc6cafff",
+     "size": 2261
+    }
+   ],
+   "change_floor": 0,
+   "claims": {
+    "bytes": true,
+    "history": true,
+    "state": true
+   },
+   "head_rows_digest": "712dd137f70b12e843ea84e369a802fbfff451e5ae919975e577c73ed4f4e8d3",
+   "history_scope": "commits_and_changes",
+   "id": "J10-tail",
+   "image_sha256": null,
+   "sequence": 10,
+   "version_floor": 5
+  }
+ ]
+}

@@ -1,0 +1,774 @@
+{
+ "live": {
+  "catalog": {
+   "indexes": [
+    {
+     "column": "amplitude",
+     "created": 6,
+     "name": "by_amplitude",
+     "relation": "spectra",
+     "unique": false
+    },
+    {
+     "column": "band",
+     "created": 7,
+     "name": "by_band",
+     "relation": "spectra",
+     "unique": true
+    }
+   ],
+   "relations": [
+    {
+     "columns": [
+      {
+       "name": "sample",
+       "nullable": false,
+       "type": "int"
+      },
+      {
+       "name": "band",
+       "nullable": false,
+       "type": "text"
+      },
+      {
+       "name": "amplitude",
+       "nullable": true,
+       "type": "int"
+      },
+      {
+       "name": "valid",
+       "nullable": false,
+       "type": "bool"
+      }
+     ],
+     "created": 1,
+     "name": "spectra",
+     "primary": "sample"
+    }
+   ]
+  },
+  "changes": {
+   "0": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "1": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "10": {
+    "error": "invalid",
+    "ok": false
+   },
+   "11": {
+    "error": "invalid",
+    "ok": false
+   },
+   "12": {
+    "error": "invalid",
+    "ok": false
+   },
+   "2": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "3": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "4": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "5": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "6": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "7": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "8": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "9": {
+    "cursor": 9,
+    "head": 9,
+    "history_base": 9,
+    "more": false,
+    "ok": true,
+    "records": []
+   }
+  },
+  "changes_limit1_after_7": {
+   "error": "snapshot",
+   "ok": false
+  },
+  "head": {
+   "matched": 5,
+   "plan": {
+    "access": "scan",
+    "candidates": 5,
+    "residuals": 0,
+    "snapshot": 9
+   },
+   "rows": [
+    {
+     "amplitude": 111,
+     "band": "b1",
+     "sample": 1,
+     "valid": true
+    },
+    {
+     "amplitude": 30,
+     "band": "b3",
+     "sample": 3,
+     "valid": true
+    },
+    {
+     "amplitude": 40,
+     "band": "b4",
+     "sample": 4,
+     "valid": true
+    },
+    {
+     "amplitude": 888,
+     "band": "b8",
+     "sample": 8,
+     "valid": true
+    },
+    {
+     "amplitude": 90,
+     "band": "b9",
+     "sample": 9,
+     "valid": true
+    }
+   ],
+   "scanned": 5,
+   "truncated": false
+  },
+  "sample": "R9-bare",
+  "snapshots": {
+   "0": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "1": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "10": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "11": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "12": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "2": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "3": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "4": {
+    "error": "snapshot",
+    "ok": false
+   },
+   "5": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "6": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "7": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "8": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "9": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   }
+  },
+  "stats": {
+   "history_base": 9,
+   "horizon": 5,
+   "journal_records": 0,
+   "keys": 5,
+   "recovered_tail_bytes": 0,
+   "sequence": 9,
+   "versions": 6
+  }
+ },
+ "oracle": {
+  "catalog": {
+   "indexes": [
+    {
+     "column": "amplitude",
+     "created": 6,
+     "name": "by_amplitude",
+     "relation": "spectra",
+     "unique": false
+    },
+    {
+     "column": "band",
+     "created": 7,
+     "name": "by_band",
+     "relation": "spectra",
+     "unique": true
+    }
+   ],
+   "relations": [
+    {
+     "columns": [
+      {
+       "name": "sample",
+       "nullable": false,
+       "type": "int"
+      },
+      {
+       "name": "band",
+       "nullable": false,
+       "type": "text"
+      },
+      {
+       "name": "amplitude",
+       "nullable": true,
+       "type": "int"
+      },
+      {
+       "name": "valid",
+       "nullable": false,
+       "type": "bool"
+      }
+     ],
+     "created": 1,
+     "name": "spectra",
+     "primary": "sample"
+    }
+   ]
+  },
+  "changes": {
+   "0": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "1": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "10": {
+    "error": "invalid",
+    "ok": false,
+    "reason": "invalid_cursor"
+   },
+   "11": {
+    "error": "invalid",
+    "ok": false,
+    "reason": "invalid_cursor"
+   },
+   "12": {
+    "error": "invalid",
+    "ok": false,
+    "reason": "invalid_cursor"
+   },
+   "2": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "3": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "4": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "5": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "6": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "7": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "8": {
+    "error": "snapshot",
+    "history_base": 9,
+    "ok": false,
+    "reason": "below_change_floor"
+   },
+   "9": {
+    "cursor": 9,
+    "head": 9,
+    "history_base": 9,
+    "more": false,
+    "ok": true,
+    "records": []
+   }
+  },
+  "head_rows": [
+   {
+    "amplitude": 111,
+    "band": "b1",
+    "sample": 1,
+    "valid": true
+   },
+   {
+    "amplitude": 30,
+    "band": "b3",
+    "sample": 3,
+    "valid": true
+   },
+   {
+    "amplitude": 40,
+    "band": "b4",
+    "sample": 4,
+    "valid": true
+   },
+   {
+    "amplitude": 888,
+    "band": "b8",
+    "sample": 8,
+    "valid": true
+   },
+   {
+    "amplitude": 90,
+    "band": "b9",
+    "sample": 9,
+    "valid": true
+   }
+  ],
+  "history_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "image_sequence": 9,
+  "image_sha256": "089427617a79c727b1aa7af0a4974968508f6eb9b161c35a5f9f02de79d9306d",
+  "journal_sha256": "c2917f985792b627feb05abc5d4b2a6439c702fc6206e3a15283cfda7abc5d11",
+  "recovered_tail_bytes": 0,
+  "retention": {
+   "change_floor": 9,
+   "identity_unavailable_through": 9,
+   "journal_commits": [],
+   "version_floor": 5
+  },
+  "rows_digest": "b10c54a22a827a33ee4af35e201a5f05880117a6f5cfa1ec156381154c48106b",
+  "snapshots": {
+   "0": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "below_version_floor"
+   },
+   "1": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "below_version_floor"
+   },
+   "10": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "future_snapshot"
+   },
+   "11": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "future_snapshot"
+   },
+   "12": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "future_snapshot"
+   },
+   "2": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "below_version_floor"
+   },
+   "3": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "below_version_floor"
+   },
+   "4": {
+    "error": "snapshot",
+    "ok": false,
+    "reason": "below_version_floor"
+   },
+   "5": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "6": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "7": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "8": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 80,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   },
+   "9": {
+    "ok": true,
+    "rows": [
+     {
+      "amplitude": 111,
+      "band": "b1",
+      "sample": 1,
+      "valid": true
+     },
+     {
+      "amplitude": 30,
+      "band": "b3",
+      "sample": 3,
+      "valid": true
+     },
+     {
+      "amplitude": 40,
+      "band": "b4",
+      "sample": 4,
+      "valid": true
+     },
+     {
+      "amplitude": 888,
+      "band": "b8",
+      "sample": 8,
+      "valid": true
+     },
+     {
+      "amplitude": 90,
+      "band": "b9",
+      "sample": 9,
+      "valid": true
+     }
+    ]
+   }
+  },
+  "stats": {
+   "history_base": 9,
+   "horizon": 5,
+   "journal_records": 0,
+   "keys": 5,
+   "recovered_tail_bytes": 0,
+   "sequence": 9,
+   "versions": 6
+  }
+ },
+ "sample": "R9-bare"
+}
